@@ -1,46 +1,36 @@
 package com.example.investmentportfolio.investment;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import com.example.investmentportfolio.stock.Stock;
+
+import javax.persistence.*;
 
 @Entity
 public class Investment {
     @Id
     @GeneratedValue
     private Long investmentId;
-    private double amount;
+    private double costPerUnit;
     private int noOfUnits;
-    private String company;
-    private String investmentType;
     private String dateOfInvestment;
-    private double currValue;
     private Long userId;
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="stockId")
+    private Stock stock;
 
     //constructors
     public Investment(){
     }
 
-    public Investment(Long investmentId, double amount, int noOfUnits, String company, String investmentType, String dateOfInvestment, double currValue, Long userId) {
+    public Investment(Long investmentId, double costPerUnit, int noOfUnits, String dateOfInvestment, Long userId, Stock stock) {
         this.investmentId = investmentId;
-        this.amount = amount;
+        this.costPerUnit = costPerUnit;
         this.noOfUnits = noOfUnits;
-        this.company = company;
-        this.investmentType = investmentType;
         this.dateOfInvestment = dateOfInvestment;
-        this.currValue = currValue;
         this.userId = userId;
+        this.stock = stock;
     }
 
     //getters and setters
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 
     public Long getInvestmentId() {
         return investmentId;
@@ -50,12 +40,12 @@ public class Investment {
         this.investmentId = investmentId;
     }
 
-    public double getAmount() {
-        return amount;
+    public double getCostPerUnit() {
+        return costPerUnit;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public void setCostPerUnit(double costPerUnit) {
+        this.costPerUnit = costPerUnit;
     }
 
     public int getNoOfUnits() {
@@ -66,22 +56,6 @@ public class Investment {
         this.noOfUnits = noOfUnits;
     }
 
-    public String getCompany() {
-        return company;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
-    public String getInvestmentType() {
-        return investmentType;
-    }
-
-    public void setInvestmentType(String investmentType) {
-        this.investmentType = investmentType;
-    }
-
     public String getDateOfInvestment() {
         return dateOfInvestment;
     }
@@ -90,13 +64,22 @@ public class Investment {
         this.dateOfInvestment = dateOfInvestment;
     }
 
-    public double getCurrValue() {
-        return currValue;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setCurrValue(double currValue) {
-        this.currValue = currValue;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
+
+    public Stock getStock() {
+        return stock;
+    }
+
+    public void setStock(Stock stock) {
+        this.stock = stock;
+    }
+
 
     //toString() method
 
@@ -104,13 +87,11 @@ public class Investment {
     public String toString() {
         return "Investment{" +
                 "investmentId=" + investmentId +
-                ", amount=" + amount +
+                ", costPerUnit=" + costPerUnit +
                 ", noOfUnits=" + noOfUnits +
-                ", company='" + company + '\'' +
-                ", investmentType='" + investmentType + '\'' +
                 ", dateOfInvestment='" + dateOfInvestment + '\'' +
-                ", currValue=" + currValue +
                 ", userId=" + userId +
+                ", stock=" + stock +
                 '}';
     }
 }

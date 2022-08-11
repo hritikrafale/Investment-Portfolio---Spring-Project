@@ -22,8 +22,7 @@ public class UserController {
 
     @PostMapping("new_user")
     public void addUser(@RequestBody User user){
-        //userRepository.save(user);
-        System.out.println(user.toString());
+        userRepository.save(user);
     }
 
     @PutMapping("update_user")
